@@ -127,7 +127,7 @@ export default {
       inboxName: '',
       phoneNumber: '',
       apiKey: '',
-      url: 'https://unoapi.cloud',
+      url: 'https://ColoqueSuaURLdeAPI',
       ignoreGroupMessages: true,
       ignoreHistoryMessages: true,
       sendAgentName: true,
@@ -160,7 +160,7 @@ export default {
             channel: {
               type: 'whatsapp',
               phone_number: this.phoneNumber,
-              provider: 'unoapi',
+              provider: 'LetsLink',
               provider_config: {
                 api_key: this.apiKey,
                 phone_number: this.phoneNumber,
