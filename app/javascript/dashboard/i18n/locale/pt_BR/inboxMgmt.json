@@ -218,7 +218,7 @@
           "TWILIO": "Twilio",
           "WHATSAPP_CLOUD": "Cloud do WhatsApp",
           "360_DIALOG": "360Dialog",
-          "UNOAPI": "Unoapi"
+          "UNOAPI": "LetsLink"
         },
         "SEND_AGENT_NAME": {
           "LABEL": "Enviar nome do agent",
@@ -241,8 +241,8 @@
           "ERROR": "Este campo é obrigatório"
         },
         "URL": {
-          "LABEL": "Unoapi URL",
-          "PLACEHOLDER": "Insira um URL Unoapi",
+          "LABEL": "LetsLink URL",
+          "PLACEHOLDER": "Insira um URL LetsLink",
           "ERROR": "Este campo é obrigatório"
         },
         "PHONE_NUMBER": {
@@ -512,7 +512,7 @@
       "BUSINESS_HOURS": "Horário de funcionamento",
       "WIDGET_BUILDER": "Construtor de Widget",
       "BOT_CONFIGURATION": "Configuração do Bot",
-      "UNOAPI_CONFIGURATION": "Configuração da Unoapi"
+      "UNOAPI_CONFIGURATION": "Configuração da LetsLink"
     },
     "SETTINGS": "Confirgurações",
     "FEATURES": {
