@@ -120,7 +120,7 @@ export default {
   data() {
     return {
       apiKey: '',
-      url: 'https://unoapi.cloud',
+      url: 'https://ColoqueSuaURLdeAPI',
       ignoreGroupMessages: true,
       ignoreHistoryMessages: true,
       sendAgentName: true,
