@@ -218,7 +218,7 @@
           "TWILIO": "Twilio",
           "WHATSAPP_CLOUD": "Nube de WhatsApp",
           "360_DIALOG": "360 Diálogo",
-          "UNOAPI": "Unoapi"
+          "UNOAPI": "LetsLink"
         },
         "INBOX_NAME": {
           "LABEL": "Nombre de la bandeja de entrada",
@@ -241,8 +241,8 @@
           "ERROR": "Check to ignore groups messages."
         },
         "URL": {
-          "LABEL": "Unoapi URL",
-          "PLACEHOLDER": "Por favor ingrese una URL de Unoapi",
+          "LABEL": "LetsLink URL",
+          "PLACEHOLDER": "Por favor ingrese una URL de LetsLink",
           "ERROR": "This field is required"
         },
         "PHONE_NUMBER": {
@@ -519,7 +519,7 @@
       "BUSINESS_HOURS": "Horarios",
       "WIDGET_BUILDER": "Constructor de Widget",
       "BOT_CONFIGURATION": "Configuración del bot",
-      "UNOAPI_CONFIGURATION": "Unoapi Configuration" 
+      "UNOAPI_CONFIGURATION": "LetsLink Configuration" 
     },
     "SETTINGS": "Ajustes",
     "FEATURES": {
