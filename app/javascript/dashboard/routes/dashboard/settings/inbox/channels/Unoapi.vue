@@ -160,7 +160,7 @@ export default {
             channel: {
               type: 'whatsapp',
               phone_number: this.phoneNumber,
-              provider: 'LetsLink',
+              provider: 'unoapi',
               provider_config: {
                 api_key: this.apiKey,
                 phone_number: this.phoneNumber,
