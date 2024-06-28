@@ -1,66 +1,61 @@
 <%#
-# Index
+# Navigation
 
-This view is the template for the index page.
-It is responsible for rendering the search bar, header and pagination.
-It renders the `_table` partial to display details about the resources.
+This partial is used to display the navigation in Administrate.
+By default, the navigation contains navigation links
+for all resources in the admin dashboard,
+as defined by the routes in the `admin/` namespace
+%>
+<%= javascript_pack_tag 'superadmin_pages' %>
 
-## Local variables:
 
-- `page`:
-  An instance of [Administrate::Page::Collection][1].
-  Contains helper methods to help display a table,
-  and knows which attributes should be displayed in the resource's table.
-- `resources`:
-  An instance of `ActiveRecord::Relation` containing the resources
-  that match the user's search criteria.
-  By default, these resources are passed to the table partial to be displayed.
-- `search_term`:
-  A string containing the term the user has searched for, if any.
-- `show_search_bar`:
-  A boolean that determines if the search bar should be shown.
-
-[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
+<%
+  sidebar_icons = {
+    accounts: 'icon-building-4-line',
+    users: 'icon-user-follow-line',
+    platform_apps: 'icon-apps-2-line',
+    agent_bots: 'icon-robot-line',
+  }
 %>
 
-<% content_for(:title) do %>
-  <%= display_resource_name(page.resource_name) %>
-<% end %>
-
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
-
-  <% if show_search_bar %>
-    <%= render(
-      "search",
-      search_term: search_term,
-      resource_name: display_resource_name(page.resource_name)
-    ) %>
-  <% end %>
-
+<div class="border-slate-100 border-r w-56 flex-shrink-0 justify-between h-full flex flex-col" role="navigation">
   <div>
-    <%= link_to(
-      t(
-        "administrate.actions.new_resource",
-        name: page.resource_name.titleize.downcase
-      ),
-      [:new, namespace, page.resource_path.to_sym],
-      class: "button",
-    ) if accessible_action?(new_resource, :new) %>
+    <div class="flex mx-4 mb-4 border-slate-100 border-b py-6">
+      <%= link_to image_tag('/brand-assets/logo_thumbnail.svg', alt: 'Letschat Admin Dashboard', class: 'h-10'), super_admin_root_url %>
+      <div class="flex flex-col ml-3">
+        <div class="text-sm">Letschat <%= Chatwoot.config[:version] %></div>
+        <div class="text-xs text-slate-700 mt-0.5">Super Admin Console</div>
+      </div>
+    </div>
+
+    <ul class="my-4">
+      <%= render partial: "nav_item", locals: { icon: 'icon-grid-line', url: super_admin_root_url, label: 'Painel' } %>
+      <% Administrate::Namespace.new(namespace).resources.each do |resource| %>
+        <% next if ["account_users", "access_tokens", "installation_configs", "dashboard", "devise/sessions", "app_configs", "instance_statuses", "responses", "response_sources", "response_documents" , "settings"].include?  resource.resource %>
+        <%= render partial: "nav_item", locals: {
+            icon: sidebar_icons[resource.resource.to_sym],
+            url: resource_index_route(resource),
+            label: display_resource_name(resource),
+          }
+        %>
+      <% end %>
+      <hr class="border-slate-100 border-t my-5 mx-4"/>
+      <% if InstallationConfig.find_by(name: 'DEPLOYMENT_ENV')&.value == 'cloud' ||  Rails.env.development? %>
+        <%= render partial: "nav_item", locals: { icon: 'icon-folder-3-line', url: super_admin_response_sources_url, label: 'Sources' } %>
+        <%= render partial: "nav_item", locals: { icon: 'icon-draft-line', url: super_admin_response_documents_url, label: 'Documents' } %>
+        <%= render partial: "nav_item", locals: { icon: 'icon-reply-line', url: super_admin_responses_url, label: 'Responses' } %>
+      <% end %>
+    </ul>
   </div>
-</header>
-
-<section class="main-content__body main-content__body--flush">
-  <%= render(
-    "collection",
-    collection_presenter: page,
-    collection_field_name: resource_name,
-    page: page,
-    resources: resources,
-    table_title: "page-title"
-  ) %>
-
-  <%= paginate resources, param_name: '_page'%>
-</section>
+  <div>
+    <ul class="my-4">
+      <% if ChatwootApp.enterprise? %>
+      <%= render partial: "nav_item", locals: { icon: 'icon-settings-2-line', url: super_admin_settings_url, label: 'Configurações' } %>
+      <% end %>
+      <%= render partial: "nav_item", locals: { icon: 'icon-mist-fill', url: sidekiq_web_url, label: 'Painel Sidekiq' } %>
+      <%= render partial: "nav_item", locals: { icon: 'icon-health-book-line', url: super_admin_instance_status_url, label: 'Integridade da Instância' } %>
+      <%= render partial: "nav_item", locals: { icon: 'icon-dashboard-line', url: '/', label: 'Painel do Agente' } %>
+      <%= render partial: "nav_item", locals: { icon: 'icon-logout-circle-r-line', url: super_admin_logout_url, label: 'Sair' } %>
+    </ul>
+  </div>
+</div>
